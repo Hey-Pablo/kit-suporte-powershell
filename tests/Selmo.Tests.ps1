@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Testes Pester 5 das funções puras do kit-suporte.
 .DESCRIPTION

@@ -1,4 +1,4 @@
-﻿<#
+﻿﻿<#
 .SYNOPSIS
 Exibe espaço livre dos volumes e saúde dos discos físicos.
 .PARAMETER Critico

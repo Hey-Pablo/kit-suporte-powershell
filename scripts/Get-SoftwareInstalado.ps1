@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Lista os softwares instalados a partir do registro.
 .DESCRIPTION

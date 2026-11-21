@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Repara a fila de impressão do Windows.
 .DESCRIPTION

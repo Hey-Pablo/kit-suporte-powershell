@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Limpa os arquivos temporários do Windows.
 .DESCRIPTION

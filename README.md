@@ -1,62 +1,73 @@
 # Kit de Scripts PowerShell para Suporte
 
-> **Status: em desenvolvimento.** O código entra aos poucos; abaixo está o planejamento do projeto.
+Scripts para as tarefas repetitivas de suporte N1/N2 em Windows, prontos para rodar sem instalar nada.
 
-## O que é
+## Problema
 
-Conjunto de scripts para as tarefas repetitivas de suporte N1/N2 em Windows: inventário da máquina, diagnóstico de rede, limpeza de temporários, lista de softwares, reparo da fila de impressão, saúde de disco e um relatório HTML que junta tudo.
+No atendimento de suporte, as mesmas perguntas se repetem em toda máquina: qual é o hardware, a rede está de pé, o disco está cheio, o que está instalado, por que a impressora travou. Fazer isso à mão é lento e cada pessoa anota de um jeito. O kit padroniza a coleta e devolve objetos PowerShell (exportáveis) e um relatório HTML que pode ser anexado ao chamado.
 
-## O que prova
+## Solução
 
-Automação de suporte, PowerShell com boas práticas (parâmetros, ajuda, `-WhatIf`, tratamento de erro) e documentação.
+| Problema | Script | Exemplo de uso |
+|---|---|---|
+| Qual é a máquina? | `Get-InventarioPC.ps1` | `.\scripts\Get-InventarioPC.ps1 -Saida .\inventario.csv` |
+| A rede está funcionando? | `Test-RedeBasico.ps1` | `.\scripts\Test-RedeBasico.ps1 -DestinoInternet example.com -Portas 80,443` |
+| Disco cheio ou com defeito? | `Get-SaudeDisco.ps1` | `.\scripts\Get-SaudeDisco.ps1` |
+| O que está instalado? | `Get-SoftwareInstalado.ps1` | `.\scripts\Get-SoftwareInstalado.ps1 -Saida .\software.csv` |
+| Máquina lenta por temporários | `Clear-ArquivosTemporarios.ps1` | `.\scripts\Clear-ArquivosTemporarios.ps1 -WhatIf` |
+| Impressora travada | `Repair-FilaImpressao.ps1` | `.\scripts\Repair-FilaImpressao.ps1` (como administrador) |
+| Evidência para o chamado | `New-RelatorioSuporte.ps1` | `.\scripts\New-RelatorioSuporte.ps1 -Saida .\relatorio.html` |
 
-## Stack
+Um exemplo do relatório, com dados fictícios, está em `exemplos/relatorio-exemplo.html`.
 
-Windows PowerShell 5.1, sem módulos externos para executar. Pester para testes e PSScriptAnalyzer para qualidade durante o desenvolvimento.
+## Como rodar
+
+Requisitos: Windows 10 ou 11 com Windows PowerShell 5.1 (já incluso). Baixe o repositório e, na pasta dele:
+
+```powershell
+# se a política de execução bloquear os scripts, apenas nesta sessão:
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\scripts\Test-RedeBasico.ps1
+```
+
+Os scripts que alteram a máquina (`Clear-ArquivosTemporarios` e `Repair-FilaImpressao`) aceitam `-WhatIf` e `-Confirm`. `Repair-FilaImpressao` exige PowerShell como administrador e avisa quando não estiver.
+
+### Testes e qualidade (para quem desenvolve)
+
+Requer Pester 5 ou superior e PSScriptAnalyzer:
+
+```powershell
+Invoke-Pester -Path .\tests
+Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\PSScriptAnalyzerSettings.psd1
+```
+
+Os testes cobrem as funções puras (formatação de tamanho, percentual livre, classificação de disco, escape de HTML, conversão de bytes, filtro do registro). A coleta em si depende do Windows e é validada manualmente.
 
 ## Estrutura
 
 ```
-kit-suporte-powershell/
-├─ scripts/
-│  ├─ Get-InventarioPC.ps1           # hardware, SO, serial, IP, último boot
-│  ├─ Test-RedeBasico.ps1            # gateway, DNS, internet, portas
-│  ├─ Clear-ArquivosTemporarios.ps1
-│  ├─ Get-SoftwareInstalado.ps1
-│  ├─ Repair-FilaImpressao.ps1       # para o spooler, limpa a fila, reinicia
-│  ├─ Get-SaudeDisco.ps1             # espaço livre e estado dos discos
-│  └─ New-RelatorioSuporte.ps1       # HTML com tudo
-├─ modulo/KitSuporte.psm1            # funções compartilhadas
-├─ tests/                            # Pester
-├─ exemplos/relatorio-exemplo.html
-└─ README.md
+scripts/    um script por problema, mais _funcoes-manutencao.ps1 (funções puras da manutenção)
+modulo/     KitSuporte.psm1/.psd1: funções puras compartilhadas
+tests/      testes Pester
+exemplos/   relatório HTML de exemplo (dados fictícios)
 ```
 
-## Plano
+## Decisões técnicas
 
-1. Liste os 7 problemas mais comuns que você resolvia e associe um script a cada um.
-2. Inventário com `Get-CimInstance` (`Win32_ComputerSystem`, `Win32_BIOS`, `Win32_Processor`, `Win32_OperatingSystem`, `Win32_LogicalDisk`).
-3. Rede com `Test-NetConnection` e `Resolve-DnsName`, com saída em tabela de OK ou FALHA.
-4. Scripts que alteram a máquina com `[CmdletBinding(SupportsShouldProcess)]`, para aceitar `-WhatIf` e `-Confirm`.
-5. Saída sempre em objetos, com opção de exportar para CSV ou HTML.
-6. Ajuda em cada script (`.SYNOPSIS`, `.PARAMETER`, `.EXAMPLE`) e erros tratados com `try/catch`.
-7. Testes Pester das funções puras: cálculo de espaço livre, formatação, classificação em OK ou alerta.
-8. Rode o PSScriptAnalyzer e corrija os avisos.
-9. README com tabela "problema, script, exemplo de uso" e capturas de tela.
+- **Objetos, não texto.** Cada script emite objetos; o usuário decide se exporta para CSV, HTML ou segue o pipeline.
+- **Lógica pura separada da coleta.** Cálculo, formatação e classificação ficam em funções sem dependência do Windows, testáveis em qualquer sistema.
+- **`-WhatIf`/`-Confirm`** (`SupportsShouldProcess`) em tudo que apaga ou para serviços.
+- **Software pelo registro**, não por `Win32_Product`, que é lento e pode disparar reparos de instalação.
+- **Relatório HTML autossuficiente**: CSS embutido, sem rede, com escape de todo valor coletado.
+- **Arquivos com BOM UTF-8**, para o Windows PowerShell 5.1 ler os acentos corretamente.
 
-## Como deve funcionar
+## Limitações
 
-- `.\Get-InventarioPC.ps1 -Saida .\inventario.csv` gera o arquivo com os dados da máquina.
-- `.\Test-RedeBasico.ps1` mostra cada teste com resultado e tempo.
-- `.\Clear-ArquivosTemporarios.ps1 -WhatIf` lista o que seria apagado sem apagar. Sem o parâmetro, informa os MB liberados.
-- `.\Repair-FilaImpressao.ps1` exige execução como administrador e avisa quando não tem.
-- `.\New-RelatorioSuporte.ps1` gera um HTML único, pronto para anexar ao chamado.
-- Tudo roda em Windows 10 e 11 sem instalar nada.
+- Desenvolvido e testado automaticamente em PowerShell 7 com Pester; os cmdlets exclusivos do Windows (CIM, `Test-NetConnection`, `Resolve-DnsName`, spooler, registro) foram validados apenas por revisão e precisam de teste manual no Windows 10/11.
+- `Test-RedeBasico` usa o gateway IPv4 padrão; ambientes só com IPv6 não são cobertos.
+- `Clear-ArquivosTemporarios` ignora arquivos em uso e não limpa caches de navegadores.
+- Sem execução remota: cada script roda na máquina local.
 
-## Prazo
+## Próximos passos
 
-3 a 5 dias.
-
-## Autor
-
-Pablo Dilio · [Portfólio](https://hey-pablo.github.io/pablo-dilio-portfolio/) · [LinkedIn](https://www.linkedin.com/in/pablo-dilio-4063991b2)
+Execução remota por lista de máquinas; ponte com o projeto Monitor de Filiais, que usará estes scripts como agente de coleta.

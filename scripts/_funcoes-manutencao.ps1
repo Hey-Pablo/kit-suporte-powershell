@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Funções puras compartilhadas pelos scripts de manutenção do kit-suporte.
 .DESCRIPTION
