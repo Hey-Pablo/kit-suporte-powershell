@@ -1,4 +1,4 @@
-﻿﻿<#
+﻿<#
 .SYNOPSIS
 Testa gateway, DNS, internet e portas TCP.
 .PARAMETER DestinoInternet

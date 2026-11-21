@@ -1,4 +1,4 @@
-﻿﻿<#
+﻿<#
 .SYNOPSIS
 Gera relatório HTML local com inventário, rede, discos e software disponível.
 .PARAMETER Saida

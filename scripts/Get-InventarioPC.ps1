@@ -1,4 +1,4 @@
-﻿﻿<#
+﻿<#
 .SYNOPSIS
 Coleta inventário de hardware e sistema.
 .PARAMETER Saida

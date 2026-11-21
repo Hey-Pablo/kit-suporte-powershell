@@ -1,4 +1,4 @@
-﻿﻿function ConvertTo-TamanhoLegivel {
+﻿function ConvertTo-TamanhoLegivel {
     [CmdletBinding()]
     param([Parameter(Mandatory, Position=0)][ValidateRange(0, [double]::MaxValue)][double]$Bytes)
     $unidades = @('B', 'KB', 'MB', 'GB', 'TB', 'PB')

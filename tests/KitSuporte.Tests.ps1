@@ -1,4 +1,4 @@
-﻿﻿BeforeAll {
+﻿BeforeAll {
     Import-Module (Join-Path $PSScriptRoot '../modulo/KitSuporte.psd1') -Force
 }
 Describe 'Funções compartilhadas' {
