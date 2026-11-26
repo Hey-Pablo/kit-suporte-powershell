@@ -14,16 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PowerShell
-        uses: actions/setup-powershell@v2
-        with:
-          version: '7.x'
-
-      - name: Install Pester
-        shell: pwsh
-        run: |
-          Install-Module -Name Pester -Force -Scope CurrentUser -AllowClobber
-
       - name: Run Pester Tests
         shell: pwsh
         run: |
@@ -36,16 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup PowerShell
-        uses: actions/setup-powershell@v2
-        with:
-          version: '7.x'
-
-      - name: Install PSScriptAnalyzer
-        shell: pwsh
-        run: |
-          Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser -AllowClobber
 
       - name: Run PSScriptAnalyzer
         shell: pwsh

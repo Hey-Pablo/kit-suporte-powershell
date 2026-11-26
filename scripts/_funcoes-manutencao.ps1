@@ -84,6 +84,7 @@ function New-SoftwareObject {
     .EXAMPLE
         New-SoftwareObject -DisplayName "Git" -DisplayVersion "2.46" -Publisher "Git SCM" -InstallDate "20230315"
     #>
+    [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
     param(
         [string]$DisplayName,
         [string]$DisplayVersion,
