@@ -1,7 +1,8 @@
 # Kit de Scripts PowerShell para Suporte
 
-> **Status:** Em desenvolvimento — CI configurada (Pester + PSScriptAnalyzer)
-> **Demonstração:** em breve
+> **Demonstração:** em breve (GIF curto dos scripts rodando no Windows)
+
+> **Status: concluído.** 7 scripts e módulo prontos, 23 testes Pester e CI (Pester + PSScriptAnalyzer). Cmdlets só do Windows foram testados com mocks: o Pablo precisa rodar os scripts num Windows real.
 
 Scripts para as tarefas repetitivas de suporte N1/N2 em Windows, prontos para rodar sem instalar nada.
 
