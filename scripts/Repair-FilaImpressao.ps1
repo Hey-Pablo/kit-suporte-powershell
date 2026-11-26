@@ -51,7 +51,7 @@ try {
         exit 1
     }
 
-    Write-Host "Parando o servico de impressao (Spooler)..." -ForegroundColor Yellow
+    Write-Verbose "Parando o servico de impressao (Spooler)..."
     if ($PSCmdlet.ShouldProcess("Servico Spooler", "Parar servico de impressao")) {
         Stop-Service -Name Spooler -Force -ErrorAction Stop
     }
@@ -73,7 +73,7 @@ try {
         }
     }
 
-    Write-Host "Iniciando o servico de impressao (Spooler)..." -ForegroundColor Yellow
+    Write-Verbose "Iniciando o servico de impressao (Spooler)..."
     if ($PSCmdlet.ShouldProcess("Servico Spooler", "Iniciar servico de impressao")) {
         Start-Service -Name Spooler -ErrorAction Stop
     }
