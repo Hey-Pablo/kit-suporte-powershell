@@ -1,5 +1,8 @@
 # Kit de Scripts PowerShell para Suporte
 
+> **Status:** CI configurado (Pester + PSScriptAnalyzer)
+> **Demonstração:** em breve
+
 Scripts para as tarefas repetitivas de suporte N1/N2 em Windows, prontos para rodar sem instalar nada.
 
 ## Problema
