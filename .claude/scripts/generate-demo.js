@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 
-const DOCS_DIR = path.join(__dirname, '..', '..', '..');
-const IMAGES_DIR = path.join(DOCS_DIR, 'img');
-const FILES_DIR = path.join(DOCS_DIR, '..', '..', '..', 'docs');
+const DOCS_DIR = __dirname; // .claude/scripts
+const IMAGES_DIR = path.join(DOCS_DIR, '..', '..', 'docs', 'img');
+const FILES_DIR = path.join(DOCS_DIR, '..', '..', 'docs');
 
 // Mock PowerShell script output data
 const mockOutputs = {
