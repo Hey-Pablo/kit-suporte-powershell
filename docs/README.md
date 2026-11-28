@@ -22,14 +22,18 @@ Verifica gateway, DNS, conectividade com internet e portas TCP específicas.
 
 Mostra uso de disco, espaço livre e classifica o status (OK, ALERTA, CRITICO).
 
-### New-RelatorioSuporte.ps1 - Relatório HTML
+### Get-SoftwareInstalado.ps1 - Software Instalado
 
-![New-RelatorioSuporte](img/New-RelatorioSuporte.png)
+![Get-SoftwareInstalado](img/Get-SoftwareInstalado.png)
 
-Gera relatório HTML completo com todos os dados coletados, pronto para anexar ao chamado.
+Lista o software instalado via registro do Windows, exportável para CSV.
 
 ## GIF de Demonstração
 
 O arquivo `demo-terminal.gif` mostra a simulação da execução dos scripts principais em sequência (PowerShell no terminal).
 
 ![Demonstração do Kit de Suporte](demo-terminal.gif)
+
+### Demo interativa
+
+Para uma experiência mais interativa, acesse `demo-terminal.html` que mostra a saída dos scripts com formatação adequada.
