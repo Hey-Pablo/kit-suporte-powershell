@@ -1,8 +1,10 @@
 # Demonstração do Kit de Suporte PowerShell
 
+> **⚠️ Simulação com dados fictícios.** Os prints e o GIF abaixo mostram a saída simulada dos scripts; a execução real em Windows pode variar (cmdlets CIM, Test-NetConnection, spooler, registro só funcionam no Windows).
+
 ## Prints PNG
 
-Os prints abaixo mostram as telas dos scripts principais em execução.
+Os prints abaixo mostram as telas dos scripts principais em execução (simulação).
 
 ### Get-InventarioPC.ps1 - Inventário de Hardware
 

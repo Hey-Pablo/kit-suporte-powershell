@@ -1,7 +1,9 @@
 # Kit de Scripts PowerShell para Suporte
 
 ![Demonstração do Kit de Suporte](docs/demo-terminal.gif)
-> **Status: concluído.** 7 scripts e módulo prontos, 23 testes Pester e CI (Pester + PSScriptAnalyzer). Cmdlets só do Windows foram testados com mocks: o Pablo precisa rodar os scripts num Windows real.
+> **⚠️ Simulação com dados fictícios.** O GIF e os prints abaixo mostram a saída simulada dos scripts; a execução real em Windows pode variar (cmdlets CIM, Test-NetConnection, spooler, etc. só funcionam no Windows).
+> 
+> **Status: concluído.** 7 scripts e módulo prontos, 23 testes Pester e CI (Pester + PSScriptAnalyzer).
 
 Scripts para as tarefas repetitivas de suporte N1/N2 em Windows, prontos para rodar sem instalar nada.
 
@@ -24,6 +26,8 @@ No atendimento de suporte, as mesmas perguntas se repetem em toda máquina: qual
 Um exemplo do relatório, com dados fictícios, está em `exemplos/relatorio-exemplo.html`.
 
 ## Telas
+
+> **⚠️ Prints simulados com dados fictícios.** A saída real em Windows pode variar (cmdlets CIM, Test-NetConnection, spooler, registro só funcionam no Windows).
 
 ### Get-InventarioPC.ps1 - Inventário de Hardware
 
