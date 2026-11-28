@@ -1,0 +1,12 @@
+{
+  "name": "kit-suporte-powershell",
+  "version": "1.0.0",
+  "description": "Kit de scripts PowerShell para suporte técnico",
+  "scripts": {
+    "docs:generate": "node .claude/scripts/generate-demo.js",
+    "docs:capture-all": "node .claude/scripts/generate-demo.js --all"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.1"
+  }
+}
