@@ -1,8 +1,9 @@
 # Kit de Scripts PowerShell para Suporte
 
-> **Demonstração:** em breve (GIF curto dos scripts rodando no Windows)
-
-> **Status: concluído.** 7 scripts e módulo prontos, 23 testes Pester e CI (Pester + PSScriptAnalyzer). Cmdlets só do Windows foram testados com mocks: o Pablo precisa rodar os scripts num Windows real.
+![Demonstração do Kit de Suporte](docs/demo-terminal.gif)
+> **⚠️ Simulação com dados fictícios.** O GIF e os prints abaixo mostram a saída simulada dos scripts; a execução real em Windows pode variar (cmdlets CIM, Test-NetConnection, spooler, etc. só funcionam no Windows).
+> 
+> **Status: concluído.** 7 scripts e módulo prontos, 23 testes Pester e CI (Pester + PSScriptAnalyzer).
 
 Scripts para as tarefas repetitivas de suporte N1/N2 em Windows, prontos para rodar sem instalar nada.
 
@@ -23,6 +24,34 @@ No atendimento de suporte, as mesmas perguntas se repetem em toda máquina: qual
 | Evidência para o chamado | `New-RelatorioSuporte.ps1` | `.\scripts\New-RelatorioSuporte.ps1 -Saida .\relatorio.html` |
 
 Um exemplo do relatório, com dados fictícios, está em `exemplos/relatorio-exemplo.html`.
+
+## Telas
+
+> **⚠️ Prints simulados com dados fictícios.** A saída real em Windows pode variar (cmdlets CIM, Test-NetConnection, spooler, registro só funcionam no Windows).
+
+### Get-InventarioPC.ps1 - Inventário de Hardware
+
+![Get-InventarioPC](docs/img/Get-InventarioPC.png)
+
+Coleta informações detalhadas do hardware: computador, BIOS, processador, memória, sistema operacional, IPs e discos.
+
+### Test-RedeBasico.ps1 - Diagnóstico de Rede
+
+![Test-RedeBasico](docs/img/Test-RedeBasico.png)
+
+Verifica gateway, DNS, conectividade com internet e portas TCP específicas.
+
+### Get-SaudeDisco.ps1 - Status dos Discos
+
+![Get-SaudeDisco](docs/img/Get-SaudeDisco.png)
+
+Mostra uso de disco, espaço livre e classifica o status (OK, ALERTA, CRITICO).
+
+### Get-SoftwareInstalado.ps1 - Software Instalado
+
+![Get-SoftwareInstalado](docs/img/Get-SoftwareInstalado.png)
+
+Lista o software instalado via registro do Windows, exportável para CSV.
 
 ## Como rodar
 
